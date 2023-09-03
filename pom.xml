@@ -11,7 +11,7 @@
     </parent>
 
     <modules>
-        <module>ewm-main-Server</module>
+        <module>ewm-service</module>
         <module>stats</module>
     </modules>
 
