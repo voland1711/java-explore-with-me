@@ -27,7 +27,6 @@ public class StatsClient extends BaseClient {
                 .requestFactory(HttpComponentsClientHttpRequestFactory::new)
                 .build()
         );
-        System.out.println("serverUrl = " + serverUrl);
     }
 
     public void saveHit(HitRequestDto hitRequestDto) {
