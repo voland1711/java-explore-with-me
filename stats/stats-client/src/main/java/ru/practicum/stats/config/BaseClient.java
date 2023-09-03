@@ -30,9 +30,6 @@ public class BaseClient {
         return responseBuilder.build();
     }
 
-    protected ResponseEntity<Object> get(String path) {
-        return get(path, null);
-    }
 
     protected ResponseEntity<Object> get(String path, @NonNull Map<String, Object> parameters) {
         return makeAndSendRequest(HttpMethod.GET, path, parameters, "null");
