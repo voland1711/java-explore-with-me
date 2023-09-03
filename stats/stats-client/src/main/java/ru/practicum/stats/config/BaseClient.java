@@ -31,8 +31,8 @@ public class BaseClient {
     }
 
 
-    protected ResponseEntity<Object> get(String path, @NonNull Map<String, Object> parameters) {
-        return makeAndSendRequest(HttpMethod.GET, path, parameters, "null");
+    protected ResponseEntity<Object> get(String path, Map<String, Object> parameters) {
+        return makeAndSendRequest(HttpMethod.GET, path, parameters, "");
     }
 
     protected <T> ResponseEntity<Object> post(String path, T body) {
