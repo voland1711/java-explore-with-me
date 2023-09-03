@@ -30,11 +30,11 @@ public class BaseClient {
     }
 
     protected ResponseEntity<Object> get(String path) {
-        return get(path, null);
+        return get(path);
     }
 
     protected ResponseEntity<Object> get(String path, long userId) {
-        return get(path, null);
+        return get(path);
     }
 
     protected ResponseEntity<Object> get(String path, @NonNull Map<String, Object> parameters) {
@@ -42,11 +42,11 @@ public class BaseClient {
     }
 
     protected <T> ResponseEntity<Object> post(String path, T body) {
-        return post(path, null, body);
+        return post(path, body);
     }
 
     protected <T> ResponseEntity<Object> post(String path, long userId, T body) {
-        return post(path, null, body);
+        return post(path, body);
     }
 
     protected <T> ResponseEntity<Object> post(String path, @NonNull Map<String, Object> parameters, T body) {
