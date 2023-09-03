@@ -1,6 +1,7 @@
 package ru.practicum.stats.config;
 
 import org.springframework.http.*;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
@@ -33,8 +34,8 @@ public class BaseClient {
         return get(path, null);
     }
 
-    protected ResponseEntity<Object> get(String path, @Nullable Map<String, Object> parameters) {
-        return makeAndSendRequest(HttpMethod.GET, path, parameters, null);
+    protected ResponseEntity<Object> get(String path, @NonNull Map<String, Object> parameters) {
+        return makeAndSendRequest(HttpMethod.GET, path, parameters, "null");
     }
 
     protected <T> ResponseEntity<Object> post(String path, T body) {
