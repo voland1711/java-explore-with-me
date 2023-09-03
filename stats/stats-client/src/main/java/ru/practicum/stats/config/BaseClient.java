@@ -1,7 +1,7 @@
 package ru.practicum.stats.config;
 
 import org.springframework.http.*;
-import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
@@ -30,30 +30,22 @@ public class BaseClient {
     }
 
     protected ResponseEntity<Object> get(String path) {
-        return get(path);
+        return get(path, null);
     }
 
-    protected ResponseEntity<Object> get(String path, long userId) {
-        return get(path);
-    }
-
-    protected ResponseEntity<Object> get(String path, @NonNull Map<String, Object> parameters) {
+    protected ResponseEntity<Object> get(String path, @Nullable Map<String, Object> parameters) {
         return makeAndSendRequest(HttpMethod.GET, path, parameters, null);
     }
 
     protected <T> ResponseEntity<Object> post(String path, T body) {
-        return post(path, body);
+        return post(path, null, body);
     }
 
-    protected <T> ResponseEntity<Object> post(String path, long userId, T body) {
-        return post(path, body);
-    }
-
-    protected <T> ResponseEntity<Object> post(String path, @NonNull Map<String, Object> parameters, T body) {
+    protected <T> ResponseEntity<Object> post(String path, @Nullable Map<String, Object> parameters, T body) {
         return makeAndSendRequest(HttpMethod.POST, path, parameters, body);
     }
 
-    private <T> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path, @NonNull Map<String, Object> parameters, @NonNull T body) {
+    private <T> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path, @Nullable Map<String, Object> parameters, @Nullable T body) {
         HttpEntity<T> requestEntity = new HttpEntity<>(body);
 
         ResponseEntity<Object> serverResponse;
