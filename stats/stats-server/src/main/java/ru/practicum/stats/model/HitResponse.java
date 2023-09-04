@@ -10,7 +10,7 @@ import lombok.Setter;
 @EqualsAndHashCode
 @AllArgsConstructor
 public class HitResponse {
-    String app;
-    String uri;
-    Long hits;
+    private String app;
+    private String uri;
+    private Long hits;
 }
