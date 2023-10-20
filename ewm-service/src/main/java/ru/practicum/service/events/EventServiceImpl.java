@@ -52,8 +52,8 @@ public class EventServiceImpl implements EventService {
                         " users = {}, states = {}, categories = {}, rangeStart = {}, rangeEnd = {}, from = {}, size = {}",
                 users, states, categories, rangeStart, rangeEnd, from, size);
         Pageable pageable = PageRequest.of(from, size);
-        List<Event> eventDtoList = eventRepository.findAll
-                (buildSpecificationQuerySearchAdmin(users, states, categories, rangeStart, rangeEnd), pageable);
+        List<Event> eventDtoList = eventRepository.findAll(
+                buildSpecificationQuerySearchAdmin(users, states, categories, rangeStart, rangeEnd), pageable);
         return toListEventFullDto(eventDtoList).stream().sorted(Comparator.comparingLong(EventFullDto::getId).reversed()).collect(Collectors.toList());
     }
 
@@ -105,9 +105,9 @@ public class EventServiceImpl implements EventService {
             }
         }
 
-        List<Event> events = eventRepository.findAll
-                (buildSpecificationQuerySearchUsers(text, categories, paid, rangeStart, rangeEnd, onlyAvailable),
-                        pageable);
+        List<Event> events = eventRepository.findAll(
+                buildSpecificationQuerySearchUsers(text, categories, paid, rangeStart, rangeEnd, onlyAvailable),
+                pageable);
         eventShortDtoList = toListEventShortDto(events);
         statsSave(request);
         return eventShortDtoList;
