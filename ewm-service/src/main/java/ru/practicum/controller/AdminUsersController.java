@@ -6,7 +6,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.config.CommonConstants;
 import ru.practicum.dto.user.NewUserRequest;
 import ru.practicum.dto.user.UserDto;
 import ru.practicum.service.user.UserService;
@@ -28,7 +27,7 @@ public class AdminUsersController {
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto createUser(@Valid @RequestBody NewUserRequest newUserRequest) {
         log.info("Поступил запрос в AdminUsersController.createUser");
-        return  userService.createUser(newUserRequest);
+        return userService.createUser(newUserRequest);
     }
 
     @GetMapping

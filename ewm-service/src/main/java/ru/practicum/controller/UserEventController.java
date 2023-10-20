@@ -6,13 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.dto.event.*;
-import ru.practicum.dto.location.LocationDto;
 import ru.practicum.dto.participation.ParticipationRequestDto;
 import ru.practicum.service.events.EventService;
 import ru.practicum.service.request.RequestService;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j

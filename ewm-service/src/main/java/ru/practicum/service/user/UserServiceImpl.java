@@ -13,7 +13,6 @@ import ru.practicum.model.User;
 import ru.practicum.model.mapper.UserMapper;
 import ru.practicum.repository.UserRepository;
 
-import javax.persistence.EntityExistsException;
 import java.util.List;
 import java.util.stream.Collectors;
 
