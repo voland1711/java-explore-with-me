@@ -316,7 +316,7 @@ public class EventServiceImpl implements EventService {
                     event.setState(EventState.CANCELED);
                     break;
                 default:
-                    new UnsupportedTypeException("Поле StateAction содержит неподдерживаемый тип данных");
+                    throw new UnsupportedTypeException("Поле StateAction содержит неподдерживаемый тип данных");
             }
         }
     }
@@ -331,7 +331,7 @@ public class EventServiceImpl implements EventService {
                     event.setState(EventState.CANCELED);
                     break;
                 default:
-                    new UnsupportedTypeException("Поле StateAction содержит неподдерживаемый тип данных");
+                    throw new UnsupportedTypeException("Поле StateAction содержит неподдерживаемый тип данных");
             }
         }
     }
