@@ -28,7 +28,7 @@ public class StatsServiceImpl implements StatsService {
 
     @Override
     public List<HitResponseDto> getHits(LocalDateTime start, LocalDateTime end, List<String> uris, boolean unique) {
-        if (start.isBefore(end)) {
+        if (start.isAfter(end)) {
             throw new LocalDateTimeException("Неверно указаны даты");
         }
         if (unique) {
