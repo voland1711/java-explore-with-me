@@ -13,6 +13,7 @@ import ru.practicum.model.User;
 import ru.practicum.model.mapper.UserMapper;
 import ru.practicum.repository.UserRepository;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,7 +49,9 @@ public class UserServiceImpl implements UserService {
         } else {
             userDtoList = toListUserDto(userRepository.getAllByIdIn(ids, of));
         }
-        return userDtoList;
+        return userDtoList.stream()
+                .sorted(Comparator.comparingLong(UserDto::getId))
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -12,6 +12,7 @@ import ru.practicum.exception.ObjectNotFoundException;
 import ru.practicum.model.Category;
 import ru.practicum.model.mapper.CategoryMapper;
 import ru.practicum.repository.CategoryRepository;
+import ru.practicum.repository.EventRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +25,7 @@ import static ru.practicum.model.mapper.CategoryMapper.toCategoryDto;
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
+    private final EventRepository eventRepository;
 
     @Override
     @Transactional
@@ -58,6 +60,9 @@ public class CategoryServiceImpl implements CategoryService {
                 " с параметром catId = {}", catId);
         categoryRepository.findById(catId)
                 .orElseThrow(() -> new ObjectNotFoundException("Категория с id = " + catId + " не найдена"));
+        if (eventRepository.countByCategoryId(catId) > 0) {
+            throw new EntityExistException("Категория привязана к событиям");
+        }
         categoryRepository.deleteById(catId);
     }
 

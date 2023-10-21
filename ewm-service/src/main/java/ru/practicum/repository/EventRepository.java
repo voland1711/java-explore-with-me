@@ -9,6 +9,8 @@ import ru.practicum.model.Event;
 import java.util.List;
 
 public interface EventRepository extends JpaRepository<Event, Long> {
+    Long countByCategoryId(Long categoryId);
+
     List<Event> findAll(Specification<Event> specification, Pageable pageable);
 
     List<Event> findAllByInitiatorId(Long id, Pageable pageable);

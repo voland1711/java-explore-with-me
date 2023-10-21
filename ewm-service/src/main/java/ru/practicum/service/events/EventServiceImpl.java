@@ -54,7 +54,9 @@ public class EventServiceImpl implements EventService {
         Pageable pageable = PageRequest.of(from, size);
         List<Event> eventDtoList = eventRepository.findAll(
                 buildSpecificationQuerySearchAdmin(users, states, categories, rangeStart, rangeEnd), pageable);
-        return toListEventFullDto(eventDtoList).stream().sorted(Comparator.comparingLong(EventFullDto::getId).reversed()).collect(Collectors.toList());
+        return toListEventFullDto(eventDtoList).stream()
+                .sorted(Comparator.comparingLong(EventFullDto::getId).reversed())
+                .collect(Collectors.toList());
     }
 
     @Transactional
