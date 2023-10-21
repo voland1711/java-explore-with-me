@@ -2,6 +2,7 @@ package ru.practicum.stats.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.practicum.stats.exception.LocalDateTimeException;
 import ru.practicum.stats.HitRequestDto;
 import ru.practicum.stats.HitResponseDto;
 import ru.practicum.stats.model.Hit;
@@ -27,6 +28,9 @@ public class StatsServiceImpl implements StatsService {
 
     @Override
     public List<HitResponseDto> getHits(LocalDateTime start, LocalDateTime end, List<String> uris, boolean unique) {
+        if (start.isBefore(end)) {
+            throw new LocalDateTimeException("Неверно указаны даты");
+        }
         if (unique) {
             if (uris.isEmpty()) {
                 return statsRepository.getDistinctStatsAll(start, end).stream()
