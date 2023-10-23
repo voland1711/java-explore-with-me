@@ -1,4 +1,4 @@
-package ru.practicum.controller;
+package ru.practicum.controller.admin;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,26 +19,26 @@ import javax.validation.Valid;
 public class AdminCategoriesController {
     private final CategoryService categoryService;
 
-    @PostMapping()
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public CategoryDto createCategory(@Valid @RequestBody NewCategoryDto newCategoryDto) {
-        log.info("Поступил запрос в AdminCategoriesController.createCategory");
+        log.info("Поступил запрос в AdminCategoriesController.createCategory: {}", newCategoryDto);
         return categoryService.createCategory(newCategoryDto);
     }
 
     @DeleteMapping("/{catId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCategoryById(@PathVariable Long catId) {
-        log.info("Поступил запрос в AdminCategoriesController.deleteCategoryById");
+        log.info("Поступил запрос в AdminCategoriesController.deleteCategoryById с catId = {}", catId);
         categoryService.deleteCategoryById(catId);
     }
 
     @PatchMapping("/{catId}")
     @ResponseStatus(HttpStatus.OK)
     public CategoryDto updateCategory(@PathVariable Long catId,
-                             @Valid @RequestBody CategoryDto categoryDto) {
-        log.info("Поступил запрос в AdminCategoriesController.patch");
+                                      @Valid @RequestBody CategoryDto categoryDto) {
+        log.info("Поступил запрос в AdminCategoriesController.patch: {}", categoryDto);
         return categoryService.updateCategory(catId, categoryDto);
     }
 }

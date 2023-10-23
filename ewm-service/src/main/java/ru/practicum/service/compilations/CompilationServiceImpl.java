@@ -75,12 +75,8 @@ public class CompilationServiceImpl implements CompilationService {
                 " с параметрами compId = {}, UpdateCompilationRequest = {}", compId, updateCompilationRequest);
         Compilation compilation = compilationRepository.findById(compId)
                 .orElseThrow(() -> new ObjectNotFoundException("Подборка с id = " + compId + " не найдена "));
-        if (updateCompilationRequest.getTitle() != null) {
-            compilation.setTitle(updateCompilationRequest.getTitle());
-        }
-        if (updateCompilationRequest.getPinned() != null) {
-            compilation.setPinned(updateCompilationRequest.getPinned());
-        }
+        Optional.ofNullable(updateCompilationRequest.getTitle()).ifPresent(compilation::setTitle);
+        Optional.ofNullable(updateCompilationRequest.getPinned()).ifPresent(compilation::setPinned);
         setEvents(updateCompilationRequest.getEvents(), compilation);
         compilationRepository.saveAndFlush(compilation);
         return toCompilationDto(compilation);

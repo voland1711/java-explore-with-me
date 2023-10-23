@@ -22,20 +22,22 @@ public class UserEventController {
     private final RequestService requestService;
     private final EventService eventService;
 
-    @GetMapping()
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<EventShortDto> getAllUsersEvents(@PathVariable Long userId,
                                                  @RequestParam(defaultValue = "0") Integer from,
                                                  @RequestParam(defaultValue = "10") Integer size) {
-        log.info("Поступил запрос в UserEventController.getUsersEvents");
+        log.info("Поступил запрос в UserEventController.getUsersEvents: userid = {}, from = {}, size = {}",
+                userId, from, size);
         return eventService.getAllUsersEvents(userId, from, size);
     }
 
-    @PostMapping()
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public EventFullDto createEvent(@PathVariable Long userId,
                                     @Valid @RequestBody NewEventDto newEventDto) {
-        log.info("Поступил запрос в UserEventController.createEvent {}", newEventDto);
+        log.info("Поступил запрос в UserEventController.createEvent: userId = {}, newEventDto = {}",
+                userId, newEventDto);
         return eventService.createEvent(userId, newEventDto);
     }
 
@@ -44,7 +46,7 @@ public class UserEventController {
     public EventFullDto getEventById(
             @PathVariable Long userId,
             @PathVariable Long eventId) {
-        log.info("Поступил запрос в UserEventController.getEventById");
+        log.info("Поступил запрос в UserEventController.getEventById: userId = {}, eventId = {}", userId, eventId);
         return eventService.getEventById(userId, eventId);
     }
 
@@ -54,7 +56,8 @@ public class UserEventController {
             @PathVariable Long userId,
             @PathVariable Long eventId,
             @Valid @RequestBody UpdateEventUserRequest updateEventUserRequest) {
-        log.info("Поступил запрос в UserEventController.updateEventByIdOwner");
+        log.info("Поступил запрос в UserEventController.updateEventByIdOwner: userId = {}, eventId = {}, " +
+                "updateEventUserRequest = {}", userId, eventId, updateEventUserRequest);
         return eventService.updateEventByIdOwner(userId, eventId, updateEventUserRequest);
     }
 
@@ -63,7 +66,8 @@ public class UserEventController {
     public List<ParticipationRequestDto> getEventByIdRequestsOwner(
             @PathVariable Long userId,
             @PathVariable Long eventId) {
-        log.info("Поступил запрос в UserEventController.getEventRequestsByIdOwner");
+        log.info("Поступил запрос в UserEventController.getEventRequestsByIdOwner: userId = {}, eventId = {}",
+                userId, eventId);
         return requestService.getEventByIdRequestsOwner(userId, eventId);
     }
 
@@ -72,6 +76,8 @@ public class UserEventController {
     public EventRequestStatusUpdateResult updateEventByIdRequestsOwner(
             @PathVariable Long userId, @PathVariable Long eventId,
             @RequestBody EventRequestStatusUpdateRequest eventRequestStatusUpdateRequest) {
+        log.info("Поступил запрос в UserEventController.updateEventByIdRequestsOwner: userId = {}, eventId = {}, " +
+                "eventRequestStatusUpdateRequest = {}", userId, eventId, eventRequestStatusUpdateRequest);
         return requestService.updateEventByIdRequestsOwner(userId, eventId, eventRequestStatusUpdateRequest);
     }
 

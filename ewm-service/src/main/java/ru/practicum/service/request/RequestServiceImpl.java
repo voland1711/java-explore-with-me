@@ -108,11 +108,11 @@ public class RequestServiceImpl implements RequestService {
         RequestStatus status = eventRequestStatusUpdateRequest.getStatus();
         List<Request> updateRequests = getRequestsPending(eventRequestStatusUpdateRequest.getRequestIds());
 
-        if (!updateRequests.isEmpty() && status.equals(RequestStatus.CONFIRMED)) {
+        if (!updateRequests.isEmpty() && status == RequestStatus.CONFIRMED) {
             setRequestStatus(event, updateRequests, status);
         } else if (updateRequests.isEmpty()) {
             throw new EventBeenPublished("События со статусом PENDING не найдены");
-        } else if (status.equals(RequestStatus.REJECTED)) {
+        } else if (status == RequestStatus.REJECTED) {
             updateRequests.forEach(request -> request.setStatus((RequestStatus.REJECTED)));
         }
         requestRepository.saveAllAndFlush(updateRequests);
@@ -123,20 +123,17 @@ public class RequestServiceImpl implements RequestService {
 
     private List<Request> collectResult(List<Request> requests, RequestStatus status) {
         return requests.isEmpty() ? Collections.emptyList() : requests.stream()
-                .filter(request -> request.getStatus().equals(status))
+                .filter(request -> request.getStatus() == status)
                 .collect(Collectors.toList());
     }
 
     private void setRequestStatus(Event event, List<Request> updateRequests, RequestStatus status) {
         Long countByEventIdAndStatus = requestRepository.countByEventIdAndStatus(event.getId(), status);
-        if (event.getParticipantLimit() - countByEventIdAndStatus > 0) {
-            updateRequests.forEach(request -> {
-                if (updateRequests.indexOf(request) < event.getParticipantLimit() - countByEventIdAndStatus) {
-                    request.setStatus(RequestStatus.CONFIRMED);
-                } else {
-                    request.setStatus(RequestStatus.REJECTED);
-                }
-            });
+        long differenceParticipantsConfirmed = event.getParticipantLimit() - countByEventIdAndStatus;
+        if (differenceParticipantsConfirmed > 0) {
+            updateRequests.forEach(request -> request.setStatus(updateRequests.indexOf(request) < differenceParticipantsConfirmed
+                    ? RequestStatus.CONFIRMED
+                    : RequestStatus.REJECTED));
         } else {
             throw new ExceedParticipantLimit("Первышен лимит участников");
         }
@@ -149,7 +146,7 @@ public class RequestServiceImpl implements RequestService {
 
     private List<Request> getRequestsPending(List<Long> setRequestId) {
         return setRequestId.stream().map(this::getRequest)
-                .filter(requestStatus -> requestStatus.getStatus().equals(RequestStatus.PENDING))
+                .filter(requestStatus -> requestStatus.getStatus() == RequestStatus.PENDING)
                 .collect(Collectors.toList());
     }
 
@@ -170,7 +167,7 @@ public class RequestServiceImpl implements RequestService {
         if (event.getInitiator().equals(user)) {
             throw new UserInitiatorOfTheEventException("Инициатор события не может создать запрос на участие");
         }
-        if (!event.getState().equals(EventState.PUBLISHED)) {
+        if (event.getState() != EventState.PUBLISHED) {
             throw new EventBeenPublished("Событие должно быть опубликовано");
         }
         if (event.getParticipantLimit() != 0 && (event.getParticipants().size() >= event.getParticipantLimit())) {

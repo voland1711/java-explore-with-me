@@ -1,7 +1,6 @@
 package ru.practicum.model;
 
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -12,20 +11,22 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "compilations")
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Compilation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
+
     @Column(nullable = false)
-    String title;
+    private String title;
+
     @Column(nullable = false)
-    Boolean pinned;
+    private Boolean pinned;
+
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinTable(name = "comp_event",
             joinColumns = @JoinColumn(name = "comp_id"),
             inverseJoinColumns = @JoinColumn(name = "event_id"))
-    Set<Event> events;
+    private Set<Event> events;
 }

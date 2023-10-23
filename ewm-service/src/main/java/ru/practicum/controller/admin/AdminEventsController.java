@@ -1,4 +1,4 @@
-package ru.practicum.controller;
+package ru.practicum.controller.admin;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,15 +36,23 @@ public class AdminEventsController {
             @RequestParam(required = false) @DateTimeFormat(pattern = CommonConstants.DATETIME_FORMAT_TYPE) LocalDateTime rangeEnd,
             @RequestParam(defaultValue = "0") @PositiveOrZero Integer from,
             @RequestParam(defaultValue = "10") @Positive Integer size) {
-        log.info("Поступил запрос в AdminEventsController.getEventsByAdmin");
+        log.info("Поступил запрос в AdminEventsController.getEventsByAdmin c параметрами:" +
+                "users = {}" +
+                "states = {}" +
+                "categories = {}" +
+                "rangeStart = {}" +
+                "rangeEnd = {}" +
+                "from = {}" +
+                "size = {}", users, states, categories, rangeStart, rangeEnd, from, size);
         return eventService.getEventsByAdmin(users, states, categories, rangeStart, rangeEnd, from, size);
     }
 
     @PatchMapping("/{eventId}")
     @ResponseStatus(HttpStatus.OK)
     public EventFullDto updateEventByAdmin(@PathVariable Long eventId,
-                                    @Valid @RequestBody UpdateEventAdminRequest updateEventAdminRequest) {
-        log.info("Поступил запрос в AdminEventsController.updateEventByAdmin");
+                                           @Valid @RequestBody UpdateEventAdminRequest updateEventAdminRequest) {
+        log.info("Поступил запрос в AdminEventsController.updateEventByAdmin с парамтерами: eventId = {}" +
+                "updateEventAdminRequest = {}", eventId, updateEventAdminRequest);
         return eventService.updateEventByAdmin(eventId, updateEventAdminRequest);
     }
 }

@@ -17,7 +17,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping
-@RequiredArgsConstructor()
+@RequiredArgsConstructor
 public class StatsController {
     private final StatsService statsService;
 

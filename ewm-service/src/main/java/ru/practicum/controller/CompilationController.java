@@ -27,7 +27,8 @@ public class CompilationController {
             @RequestParam(required = false) Boolean pinned,
             @RequestParam(defaultValue = "0") @PositiveOrZero Integer from,
             @RequestParam(defaultValue = "10") @Positive Integer size) {
-        log.info("Поступил запрос в CompilationController.getCompilationsAll");
+        log.info("Поступил запрос в CompilationController.getCompilationsAll: pinned = {}, from = {}, size = {}",
+                pinned, from, size);
         return compilationService.getCompilationsAll(pinned,
                 PageRequest.of(from / size, size));
     }
@@ -35,7 +36,7 @@ public class CompilationController {
     @GetMapping("/{compId}")
     @ResponseStatus(HttpStatus.OK)
     public CompilationDto getCompilationById(@PathVariable Long compId) {
-        log.info("Поступил запрос в CompilationController.getCompilationById");
+        log.info("Поступил запрос в CompilationController.getCompilationById c compId = {}", compId);
         return compilationService.getCompilationById(compId);
     }
 }

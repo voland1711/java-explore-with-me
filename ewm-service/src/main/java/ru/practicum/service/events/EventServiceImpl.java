@@ -100,13 +100,11 @@ public class EventServiceImpl implements EventService {
                 onlyAvailable, sort, from, size, request);
         List<EventShortDto> eventShortDtoList;
         Pageable pageable = PageRequest.of(from, size, getTypeSort(sort));
-
         if (Objects.nonNull(rangeStart) && Objects.nonNull(rangeEnd)) {
             if (rangeEnd.isBefore(rangeStart)) {
                 throw new LocalDateTimeException("Неверно указан временной интервал");
             }
         }
-
         List<Event> events = eventRepository.findAll(
                 buildSpecificationQuerySearchUsers(text, categories, paid, rangeStart, rangeEnd, onlyAvailable),
                 pageable);
@@ -122,7 +120,7 @@ public class EventServiceImpl implements EventService {
                 " с параметрами: id = {}, HttpServletRequest = {}", eventId, request);
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new ObjectNotFoundException("Событие с id = " + eventId + " не найдено"));
-        if (!event.getState().equals(EventState.PUBLISHED)) {
+        if (event.getState() != EventState.PUBLISHED) {
             throw new ObjectNotFoundException("Событие с идентификатором id = " + eventId + " не опубликовано");
         }
         statsSave(request);
@@ -289,15 +287,15 @@ public class EventServiceImpl implements EventService {
     }
 
     private void validateEventStateUserUpdate(Event event) {
-        if (event.getState().equals(EventState.PUBLISHED)) {
+        if (event.getState() == EventState.PUBLISHED) {
             throw new EventBeenPublished("Событие уже опубликовано");
         }
     }
 
     private void validateEventStateAdminUpdate(Event event) {
-        if (event.getState().equals(EventState.PUBLISHED)) {
+        if (event.getState() == EventState.PUBLISHED) {
             throw new EventBeenPublished("Событие уже опубликовано");
-        } else if (event.getState().equals(EventState.CANCELED)) {
+        } else if (event.getState() == EventState.CANCELED) {
             throw new EventBeenCanceled("Событие уже закрыто");
         }
     }

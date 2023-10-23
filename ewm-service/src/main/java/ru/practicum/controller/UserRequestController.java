@@ -17,12 +17,12 @@ import java.util.List;
 @RequestMapping("/users/{userId}/requests")
 @Validated
 public class UserRequestController {
-private final RequestService requestService;
+    private final RequestService requestService;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<ParticipationRequestDto> getUserRequests(@PathVariable Long userId) {
-        log.info("Поступил запрос в UserRequestController.getUserRequests");
+        log.info("Поступил запрос в UserRequestController.getUserRequests c userId = {}", userId);
         return requestService.getUserRequests(userId);
     }
 
@@ -30,15 +30,17 @@ private final RequestService requestService;
     @ResponseStatus(HttpStatus.CREATED)
     public ParticipationRequestDto createUserRequest(@PathVariable Long userId,
                                                      @RequestParam Long eventId) {
-        log.info("Поступил запрос в UserRequestController.createUserRequest");
+        log.info("Поступил запрос в UserRequestController.createUserRequest: userId = {}, eventId = {}",
+                userId, eventId);
         return requestService.createUserRequest(userId, eventId);
     }
 
     @PatchMapping("/{requestId}/cancel")
     @ResponseStatus(HttpStatus.OK)
     public ParticipationRequestDto cancelUserRequest(@PathVariable Long userId,
-                                                      @PathVariable Long requestId) {
-        log.info("Поступил запрос в UserRequestController.cancelEventRequest");
+                                                     @PathVariable Long requestId) {
+        log.info("Поступил запрос в UserRequestController.cancelEventRequest: userId = {}, requestId = {}",
+                userId, requestId);
         return requestService.cancelUserRequest(userId, requestId);
     }
 }

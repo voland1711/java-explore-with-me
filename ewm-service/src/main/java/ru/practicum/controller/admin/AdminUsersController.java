@@ -1,4 +1,4 @@
-package ru.practicum.controller;
+package ru.practicum.controller.admin;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ public class AdminUsersController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto createUser(@Valid @RequestBody NewUserRequest newUserRequest) {
-        log.info("Поступил запрос в AdminUsersController.createUser");
+        log.info("Поступил запрос в AdminUsersController.createUser: {}", newUserRequest);
         return userService.createUser(newUserRequest);
     }
 
@@ -36,7 +36,8 @@ public class AdminUsersController {
             @RequestParam(required = false) List<Long> ids,
             @RequestParam(required = false, defaultValue = "0") @PositiveOrZero Integer from,
             @RequestParam(required = false, defaultValue = "10") @Positive Integer size) {
-        log.info("Поступил запрос в AdminUsersController.getUsers");
+        log.info("Поступил запрос в AdminUsersController.getUsers с параметрами: ids = {}" +
+                "from = {}, size = {}", ids, from, size);
         return userService.getUsers(ids, PageRequest.of(from / size, size));
 
     }
@@ -44,7 +45,7 @@ public class AdminUsersController {
     @DeleteMapping("/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUserById(@PathVariable Long userId) {
-        log.info("Поступил запрос в AdminUsersController.deleteUserById");
+        log.info("Поступил запрос в AdminUsersController.deleteUserById c userId = {}", userId);
         userService.deleteUserById(userId);
     }
 }

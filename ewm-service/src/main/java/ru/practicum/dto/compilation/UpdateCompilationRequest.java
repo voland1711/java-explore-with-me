@@ -11,11 +11,11 @@ import java.util.Set;
 @Setter
 @Builder
 public class UpdateCompilationRequest {
-    Set<Long> events;
+    private Set<Long> events;
 
-    Boolean pinned;
+    private Boolean pinned;
 
     @Size(min = 1, max = 50)
-    String title;
+    private String title;
 
 }

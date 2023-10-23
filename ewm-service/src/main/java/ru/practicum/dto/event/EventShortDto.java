@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 public class EventShortDto {
-    @JsonProperty(required = true)
     private Long id;
 
     @JsonProperty(required = true)

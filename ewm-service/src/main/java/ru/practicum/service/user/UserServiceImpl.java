@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import ru.practicum.dto.user.NewUserRequest;
 import ru.practicum.dto.user.UserDto;
 import ru.practicum.exception.EntityExistException;
@@ -44,16 +45,15 @@ public class UserServiceImpl implements UserService {
         log.info("Поступил запрос в UserServiceImpl.getUsers на получении списка пользователей" +
                 " с параметрами: ids = {}, of = {}", ids, of);
         List<UserDto> userDtoList;
-        if (ids == null || ids.isEmpty()) {
-            userDtoList = toListUserDto(userRepository.getAll(of).getContent());
-        } else {
-            userDtoList = toListUserDto(userRepository.getAllByIdIn(ids, of));
-        }
+        userDtoList = (CollectionUtils.isEmpty(ids))
+                ? toListUserDto(userRepository.getAll(of).getContent())
+                : toListUserDto(userRepository.getAllByIdIn(ids, of));
         return userDtoList.stream()
                 .sorted(Comparator.comparingLong(UserDto::getId))
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public void deleteUserById(Long userId) {
         log.info("Поступил запрос в UserServiceImpl.deleteUserById на удаление пользователя" +

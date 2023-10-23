@@ -22,7 +22,7 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 2000)
+    @Column(length = 2000, nullable = false)
     private String annotation;
 
     @ManyToOne
@@ -32,7 +32,7 @@ public class Event {
     @Column(name = "created_on", nullable = false)
     private LocalDateTime createdOn;
 
-    @Column(nullable = false, length = 7000)
+    @Column(length = 7000, nullable = false)
     private String description;
 
     @Column(name = "event_date", nullable = false)
@@ -66,11 +66,11 @@ public class Event {
     @Column(name = "request_moderation", nullable = false)
     private Boolean requestModeration;
 
-    @Column(nullable = false)
+    @Column(length = 10, nullable = false)
     @Enumerated(EnumType.STRING)
     private EventState state;
 
-    @Column(nullable = false, length = 120)
+    @Column(length = 120, nullable = false)
     private String title;
 
     @Column(name = "views")

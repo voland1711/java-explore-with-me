@@ -61,6 +61,5 @@ public class EventMapper {
                 .requestModeration(newEventDto.getRequestModeration())
                 .title(newEventDto.getTitle())
                 .build();
-
     }
 }
