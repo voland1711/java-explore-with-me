@@ -2,8 +2,7 @@ package ru.practicum.stats;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import ru.practicum.utils.CommonConstants;
 
 import javax.validation.constraints.NotBlank;
@@ -11,8 +10,10 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 
-@Builder(toBuilder = true)
+
 @Getter
+@Builder(toBuilder = true)
+@AllArgsConstructor
 public class HitRequestDto {
     @NotBlank(message = "Отсуствует название приложения")
     private final String app;

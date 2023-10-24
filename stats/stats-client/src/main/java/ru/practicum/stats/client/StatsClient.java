@@ -1,5 +1,6 @@
 package ru.practicum.stats.client;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -17,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service
 public class StatsClient extends BaseClient {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(CommonConstants.DATETIME_FORMAT_TYPE);
@@ -28,6 +30,7 @@ public class StatsClient extends BaseClient {
                 .requestFactory(HttpComponentsClientHttpRequestFactory::new)
                 .build()
         );
+        log.info("Сервер хранения статистики располагается по адресу: {}", serverUrl);
     }
 
     public void saveHit(HitRequestDto hitRequestDto) {

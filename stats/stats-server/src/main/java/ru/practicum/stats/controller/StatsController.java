@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.stats.HitRequestDto;
 import ru.practicum.stats.HitResponseDto;
-import ru.practicum.stats.service.StatsServiceImpl;
+import ru.practicum.stats.service.StatsService;
 import ru.practicum.utils.CommonConstants;
 
 import javax.validation.Valid;
@@ -17,9 +17,9 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping
-@RequiredArgsConstructor()
+@RequiredArgsConstructor
 public class StatsController {
-    private final StatsServiceImpl statsService;
+    private final StatsService statsService;
 
     @PostMapping("/hit")
     @ResponseStatus(value = HttpStatus.CREATED)

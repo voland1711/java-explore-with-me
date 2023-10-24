@@ -1,14 +1,12 @@
 package ru.practicum.stats;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @EqualsAndHashCode
 @AllArgsConstructor
+@ToString
 public class HitResponseDto {
     private final String app;
     private final String uri;
