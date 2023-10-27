@@ -46,10 +46,10 @@ public class ErrorHandler {
             EntityExistException.class,
             UserInitiatorOfTheEventException.class,
             RequestRepeatException.class,
+            CommentRepeatException.class,
             JdbcSQLIntegrityConstraintViolationException.class,
             EventBeenCanceled.class,
             ExceedParticipantLimit.class,
-
             AccessDeniedException.class
     })
     @ResponseStatus(HttpStatus.CONFLICT)
