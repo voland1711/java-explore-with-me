@@ -12,7 +12,7 @@ import static ru.practicum.model.mapper.UserMapper.toUserShortDto;
 
 @UtilityClass
 public class CommentMapper {
-    public static CommentShortDto toCommentShortDto(@NonNull Comment comment){
+    public static CommentShortDto toCommentShortDto(@NonNull Comment comment) {
         return CommentShortDto
                 .builder()
                 .id(comment.getId())
@@ -22,7 +22,7 @@ public class CommentMapper {
                 .build();
     }
 
-    public static CommentFullDto toCommentFullDto(@NonNull Comment comment){
+    public static CommentFullDto toCommentFullDto(@NonNull Comment comment) {
         return CommentFullDto
                 .builder()
                 .id(comment.getId())
@@ -34,7 +34,7 @@ public class CommentMapper {
                 .build();
     }
 
-    public static Comment toComment(@NonNull NewCommentDto newCommentDto){
+    public static Comment toComment(@NonNull NewCommentDto newCommentDto) {
         return Comment
                 .builder()
                 .id(null)
