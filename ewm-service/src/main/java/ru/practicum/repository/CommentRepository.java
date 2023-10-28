@@ -14,7 +14,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     List<Comment> findAllByInitiator(User user, PageRequest of);
 
-    Optional<Comment> findByCommentTextAndAndEvent_IdAndInitiator_Id(String commentText, Long eventId, Long userId);
+    Optional<Comment> findByCommentTextAndAndEventIdAndInitiatorId(String commentText, Long eventId, Long userId);
 
-    Optional<Comment> findByIdAndInitiator_Id(Long commentId, Long userId);
+    Optional<Comment> findByIdAndInitiatorId(Long commentId, Long userId);
 }

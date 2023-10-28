@@ -45,7 +45,7 @@ public class CommentServicesImpl implements CommentService {
                 .orElseThrow(() -> new ObjectNotFoundException("Пользователь с id: " + userId + " не найден"));
 
         boolean existComment = commentRepository
-                .findByCommentTextAndAndEvent_IdAndInitiator_Id(newCommentDto.getCommentText(), eventId, userId)
+                .findByCommentTextAndAndEventIdAndInitiatorId(newCommentDto.getCommentText(), eventId, userId)
                 .isPresent();
         if (existComment) {
             throw new CommentRepeatException("Вы пытаетесь добавить повторный комментарий");
@@ -65,7 +65,7 @@ public class CommentServicesImpl implements CommentService {
         commentRepository.findById(commentId)
                 .orElseThrow(() -> new ObjectNotFoundException("Комментарий с id: " + commentId + " не найден"));
         Comment comment = commentRepository
-                .findByIdAndInitiator_Id(commentId, userId)
+                .findByIdAndInitiatorId(commentId, userId)
                 .orElseThrow(() -> new AccessDeniedException("Ошибка обновления комментария: принадлежит другому пользователю"));
         eventRepository.findById(eventId)
                 .orElseThrow(() -> new ObjectNotFoundException("Событие с id: " + eventId + " не найдено"));

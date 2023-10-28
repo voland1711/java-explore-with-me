@@ -37,7 +37,6 @@ public class CommentMapper {
     public static Comment toComment(@NonNull NewCommentDto newCommentDto) {
         return Comment
                 .builder()
-                .id(null)
                 .commentText(newCommentDto.getCommentText())
                 .build();
     }

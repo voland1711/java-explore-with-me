@@ -36,8 +36,7 @@ public class CommentController {
     @GetMapping("/user/{userId}")
     public List<CommentShortDto> getCommentAllByInitiator(@PathVariable Long userId,
                                                           @RequestParam(defaultValue = "0") Integer from,
-                                                          @RequestParam(defaultValue = "10") Integer size
-    ) {
+                                                          @RequestParam(defaultValue = "10") Integer size) {
         log.info("Поступил запрос в CommentController.getCommentAllByUser с параметром eventId = {}", userId);
         return commentService.getCommentAllByInitiator(userId, from, size);
     }

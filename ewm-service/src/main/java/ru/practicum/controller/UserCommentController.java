@@ -34,12 +34,11 @@ public class UserCommentController {
     @PatchMapping
     @ResponseStatus(HttpStatus.OK)
     public CommentShortDto updateCommentByIdUser(@PathVariable Long userId,
-                                              @PathVariable Long eventId,
-                                              @Valid @RequestBody UpdateCommentDto updateCommentDto) {
+                                                 @PathVariable Long eventId,
+                                                 @Valid @RequestBody UpdateCommentDto updateCommentDto) {
         log.info("Поступил запрос в UserEventController.updateCommentByIdUser: userId = {}, eventId = {}, " +
                 "updateEventUserRequest = {}", userId, eventId, updateCommentDto);
         return commentService.updateCommentByIdUser(userId, eventId, updateCommentDto);
     }
-
 
 }
